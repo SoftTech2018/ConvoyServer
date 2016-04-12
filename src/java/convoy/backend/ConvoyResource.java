@@ -10,9 +10,11 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -39,31 +41,62 @@ public class ConvoyResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        
+        return null;
     }
 
-    /**
-     * PUT method for updating or creating an instance of ConvoyResource
-     * @param content representation for the resource
-     */
-    @PUT
+//    /**
+//     * PUT method for updating or creating an instance of ConvoyResource
+//     * @param content representation for the resource
+//     */
+//    @PUT
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public void putJson(String content) {
+//    }
+        
+    @POST
+    @Path("/create/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String postCreate(@PathParam("id") String navn){
+      return navn;
     }
     
-//    @GET
-////    @Path("/admin")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getAllJson() {
-//        //TODO return proper representation object
-//        throw new UnsupportedOperationException();
-//    }
+    @PUT
+    @Path("/edit/{spot}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String putEdit(@PathParam("spot") String spot){
+        
+      return spot;
+    }
     
     @GET
-    @Path("{id}")
+    @Path("/get_id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getOneJson(@PathParam("id") String navn){
+    public String getId(@PathParam("id") String navn){
       return navn;
+    }
+    
+    @GET
+    @Path("/get_all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAll(@PathParam("id") String navn){
+      return navn;
+    }
+    
+    @GET
+    @Path("/get_last/{date}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getLast(@PathParam("date") String navn){
+      return navn;
+    }
+    
+    @GET
+    @Path("/get_user/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getUser(@QueryParam("name") String name, @QueryParam("pass") String pass){
+      
+      return name+" "+pass;
     }
 }
