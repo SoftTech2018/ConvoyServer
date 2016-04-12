@@ -32,6 +32,7 @@ public class Spot implements Serializable {
         this.latitude = latitude;
         this.lastUpdated = lastUpdated;
         this.deleted = deleted;
+        this.name = name;
     }
     
     public boolean isDeleted(){
