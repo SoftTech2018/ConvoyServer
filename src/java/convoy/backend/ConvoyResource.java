@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -51,11 +52,18 @@ public class ConvoyResource {
     public void putJson(String content) {
     }
     
+//    @GET
+////    @Path("/admin")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String getAllJson() {
+//        //TODO return proper representation object
+//        throw new UnsupportedOperationException();
+//    }
+    
     @GET
-    @Path("/admin")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUserJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+    public String getOneJson(@PathParam("id") String navn){
+      return navn;
     }
 }
