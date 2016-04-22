@@ -97,22 +97,21 @@ public class ConvoyResource {
 //    }
     
     @POST
-    @Path("/create/{spot}")
+    @Path("/create/spot")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postCreate(@PathParam("spot") String spot){
+    public String postCreate(String spot){
         Spot addSpot = gson.fromJson(spot, Spot.class);
         addSpot.setId(spotList.size()+1);
         this.spotList.add(addSpot);
-        return gson.toJson(spotList.get(spotList.size()));
+        return gson.toJson(spotList.get(spotList.size()-1));
     }
     
     @PUT
-    @Path("/edit/{spot}")
+    @Path("/edit/spot")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String putEdit(@PathParam("spot") String spot){
-        
+    public String putEdit(String spot){
         return spot;
     }
     
