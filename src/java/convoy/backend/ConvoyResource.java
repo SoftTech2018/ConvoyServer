@@ -147,19 +147,18 @@ public class ConvoyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getLast(@PathParam("date") String navn){
         // URL: http://localhost:8080/ConvoyServer/webresources/convoy/get_last/0
-        // TODO - Hent alle spots fra databasen
         long date;
         try{
             date = Long.parseLong(navn);
-        } catch (Exception e){ // Hvis der er ugyldigt tidspunkt returneres hele databasen med nuværende servertid
-             return gson.toJson(new SpotsContainer(spotList, System.currentTimeMillis()));
+        } catch (Exception e){ // Hvis der er ugyldigt tidspunkt returneres hele databasen med opdateringstidspunktet
+             return gson.toJson(new SpotsContainer(spotList, spotListUpdated));
         }
         try {
             SpotsContainer data = new SpotsContainer(dao.getUpdatedSpots(date), System.currentTimeMillis());
             return gson.toJson(data);
-        } catch (SQLException ex) { // Hvis databasen fejler returneres hele den cachede database med nuværende servertid
+        } catch (SQLException ex) { // Hvis databasen fejler returneres hele den cachede database med opdateringstidspunktet
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
-            return gson.toJson(new SpotsContainer(spotList, System.currentTimeMillis()));
+            return gson.toJson(new SpotsContainer(spotList, spotListUpdated));
         }
     }
     
