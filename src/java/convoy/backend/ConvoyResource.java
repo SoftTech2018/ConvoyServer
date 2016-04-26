@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import convoy.db.Connecter;
 import convoy.db.Spot;
 import convoy.db.SpotsDAO;
+import diverse.SpotsContainer;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -146,7 +147,20 @@ public class ConvoyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getLast(@PathParam("date") String navn){
         // URL: http://localhost:8080/ConvoyServer/webresources/convoy/get_last/0
-        return gson.toJson(spotList);
+        // TODO - Hent alle spots fra databasen
+        long date;
+        try{
+            date = Long.parseLong(navn);
+        } catch (Exception e){ // Hvis der er ugyldigt tidspunkt returneres hele databasen med nuværende servertid
+             return gson.toJson(new SpotsContainer(spotList, System.currentTimeMillis()));
+        }
+        try {
+            SpotsContainer data = new SpotsContainer(dao.getUpdatedSpots(date), System.currentTimeMillis());
+            return gson.toJson(data);
+        } catch (SQLException ex) { // Hvis databasen fejler returneres hele den cachede database med nuværende servertid
+            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+            return gson.toJson(new SpotsContainer(spotList, System.currentTimeMillis()));
+        }
     }
     
     @GET
