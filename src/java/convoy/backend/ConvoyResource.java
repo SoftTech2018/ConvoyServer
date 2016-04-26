@@ -25,7 +25,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 
 /**
@@ -54,27 +59,27 @@ public class ConvoyResource {
     public ConvoyResource() {
         gson = new Gson();
         con = new Connecter();
-        try {
-            ba = new ConvoyBackendRmi();
-        } catch (Exception ex) {
-            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            con.connect("Test", "password");
-            dao = new SpotsDAO(con);
-        } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
-            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            spotList = dao.getSpots();
-            spotListUpdated = System.currentTimeMillis();
-        } catch (SQLException | NullPointerException ex) {
-            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            ba = new ConvoyBackendRmi();
+//        } catch (Exception ex) {
+//            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        try {
+//            con.connect("Test", "password");
+//            dao = new SpotsDAO(con);
+//        } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
+//            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        try {
+//            spotList = dao.getSpots();
+//            spotListUpdated = System.currentTimeMillis();
+//        } catch (SQLException | NullPointerException ex) {
+//            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         createTestData();
     }
-
-    // Opret noget testdata    
+    
+    // Opret noget testdata
     private void createTestData(){
         spotList = new ArrayList();
         long time = System.currentTimeMillis();
@@ -160,7 +165,7 @@ public class ConvoyResource {
         try{
             date = Long.parseLong(navn);
         } catch (Exception e){ // Hvis der er ugyldigt tidspunkt returneres hele databasen med opdateringstidspunktet
-             return gson.toJson(new SpotsContainer(spotList, spotListUpdated));
+            return gson.toJson(new SpotsContainer(spotList, spotListUpdated));
         }
         try {
             SpotsContainer data = new SpotsContainer(dao.getUpdatedSpots(date), System.currentTimeMillis());
@@ -181,6 +186,22 @@ public class ConvoyResource {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
         }
 //        return name+" "+pass;
-          return newToken;
+return newToken;
+    }
+    
+    @GET
+    @Path("/get_dawa/{adresse}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getDawa(@PathParam("adresse") String adresse){
+        
+        Client client = ClientBuilder.newClient();
+        JSONArray jsonarray = null;
+        
+        //Kalder GET - get() på target og accepterer JSON
+        Response res = client.target("http://dawa.aws.dk/adresser?q="+adresse).request(MediaType.APPLICATION_JSON).get();
+        
+        //Sætter svaret til at være en string        
+        
+        return res.readEntity(String.class);
     }
 }
