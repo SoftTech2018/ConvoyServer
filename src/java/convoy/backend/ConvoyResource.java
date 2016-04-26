@@ -5,6 +5,7 @@
 */
 package convoy.backend;
 
+import brugerautorisation.transport.rmi.ConvoyBackendRmi;
 import com.google.gson.Gson;
 import convoy.db.Connecter;
 import convoy.db.Spot;
@@ -26,6 +27,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+
 /**
  * REST Web Service
  *
@@ -36,10 +38,12 @@ public class ConvoyResource {
     
     private Gson gson;
     private Connecter con;
+    private ConvoyBackendRmi ba;
     private SpotsDAO dao;
     private ArrayList<Spot> spotList;
     private long spotListUpdated;
     private long limit = 300000; // 300 sekunder = 5 minutter
+    String newToken = null;
     
     @Context
     private UriInfo context;
@@ -50,6 +54,11 @@ public class ConvoyResource {
     public ConvoyResource() {
         gson = new Gson();
         con = new Connecter();
+        try {
+            ba = new ConvoyBackendRmi();
+        } catch (Exception ex) {
+            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             con.connect("Test", "password");
             dao = new SpotsDAO(con);
@@ -166,7 +175,12 @@ public class ConvoyResource {
     @Path("/get_user/")
     @Produces(MediaType.APPLICATION_JSON)
     public String getUser(@QueryParam("name") String name, @QueryParam("pass") String pass){
-        
-        return name+" "+pass;
+        try {
+            newToken = ba.adminLogin(name, pass);
+        } catch (Exception ex) {
+            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        return name+" "+pass;
+          return newToken;
     }
 }

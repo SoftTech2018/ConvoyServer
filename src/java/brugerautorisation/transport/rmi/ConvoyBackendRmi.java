@@ -23,26 +23,25 @@ public class ConvoyBackendRmi
     public ConvoyBackendRmi() throws Exception{
         System.out.println("Publicerer RMI-tjeneste");
         this.ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
-        System.out.println("RMI-tjeneste publiceret");
-//        Naming.bind("rmi://javabog.dk/brugeradmin", ba);
-//        Bruger b = ba.hentBruger("s125015", "GetOutOrGetRekt");
-//        System.out.println("Fik bruger: " + b ) ;  
+        System.out.println("RMI-tjeneste publiceret"); 
     adminLogin("s144842", "xxx");
+    adminLogin("s144842", "xxx1");
     }
     
     public String adminLogin(String brugernavn, String adgangskode) throws Exception{
-//        ba.hentBruger(brugernavn, adgangskode);
+
     try {
-         Bruger b = ba.hentBruger(brugernavn, adgangskode);   //Bruger forsøges hentes
+         Bruger b = ba.hentBruger(brugernavn, adgangskode);      //Bruger forsøges hentes
          System.out.println("Bruger hentet: " + b.brugernavn);
-         
-         String newToken = th.createToken(b.brugernavn); //Ny token til bruger oprette
+         String newToken = th.createToken(b.brugernavn);         //Ny token til bruger oprette
          System.out.println(newToken);
          System.out.println("Token oprettet");
+         
          
          return newToken;
          
         } catch (Exception e) {
+            e.getStackTrace();
             System.out.println("Bruger findes ikke på serveren eller password er forkert");
             String bad = "Bruger findes ikke på serveren eller password er forkert";
             return bad;
