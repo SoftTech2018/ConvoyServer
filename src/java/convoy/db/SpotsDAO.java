@@ -31,7 +31,7 @@ public class SpotsDAO {
         ArrayList<Spot> spots = new ArrayList<>();
         ResultSet rs = con.doQuery("SELECT * from " + con.tabelNavn);
         while (rs.next()) {
-            spots.add(new Spot(rs.getInt("id"), rs.getBoolean("adblue"), rs.getBoolean("food"), rs.getBoolean("wc"), rs.getBoolean("bed"), rs.getBoolean("bath"), rs.getBoolean("roadtrain"), Double.parseDouble(rs.getString("posLng")), Double.parseDouble(rs.getString("posLat")), rs.getString("description"), rs.getLong("lastUpdated"), rs.getBoolean("deleted")));
+            spots.add(new Spot(rs.getInt("id"), rs.getBoolean("adblue"), rs.getBoolean("food"), rs.getBoolean("wc"), rs.getBoolean("bed"), rs.getBoolean("bath"),rs.getBoolean("fuel"), rs.getBoolean("roadtrain"), Double.parseDouble(rs.getString("posLng")), Double.parseDouble(rs.getString("posLat")), rs.getString("description"), rs.getLong("lastUpdated"), rs.getBoolean("deleted")));
         }      
         return spots;
     }
@@ -120,7 +120,7 @@ public class SpotsDAO {
         
         ResultSet rs = con.doQuery("SELECT * from " + con.tabelNavn + " WHERE lastUpdated >= " + time);
         while (rs.next()) {
-            spots.add(new Spot(rs.getInt("id"), rs.getBoolean("adblue"), rs.getBoolean("food"), rs.getBoolean("wc"), rs.getBoolean("bed"), rs.getBoolean("bath"), rs.getBoolean("roadtrain"), Double.parseDouble(rs.getString("posLng")), Double.parseDouble(rs.getString("posLat")), rs.getString("description"), rs.getLong("lastUpdated"), rs.getBoolean("deleted")));
+            spots.add(new Spot(rs.getInt("id"), rs.getBoolean("adblue"), rs.getBoolean("food"), rs.getBoolean("wc"), rs.getBoolean("bed"), rs.getBoolean("bath"),rs.getBoolean("fuel"), rs.getBoolean("roadtrain"), Double.parseDouble(rs.getString("posLng")), Double.parseDouble(rs.getString("posLat")), rs.getString("description"), rs.getLong("lastUpdated"), rs.getBoolean("deleted")));
         }   
         return spots;
     }

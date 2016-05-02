@@ -35,7 +35,7 @@ public class JsonParser {
             for (int i = 0; i < ja.length(); i++) {
                 jo = ja.getJSONObject(i);
                 Spot spot = new Spot(jo.getInt("id"),jo.getBoolean("addBlue"),jo.getBoolean("food"),jo.getBoolean("wc"),
-                                     jo.getBoolean("bed"),jo.getBoolean("bath"),jo.getBoolean("roadtrain"), jo.getDouble("longitude"), jo.getDouble("latitude"),
+                                     jo.getBoolean("bed"),jo.getBoolean("bath"),jo.getBoolean("fuel"),jo.getBoolean("roadtrain"), jo.getDouble("longitude"), jo.getDouble("latitude"),
                                     jo.getString("name"), jo.getInt("lastUpdated"), jo.getBoolean("deleted"));
                spots.add(spot);
             }
