@@ -59,23 +59,23 @@ public class ConvoyResource {
     public ConvoyResource() {
         gson = new Gson();
         con = new Connecter();
-//        try {
-//            ba = new ConvoyBackendRmi();
-//        } catch (Exception ex) {
-//            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        try {
-//            con.connect("Test", "password");
-//            dao = new SpotsDAO(con);
-//        } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
-//            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        try {
-//            spotList = dao.getSpots();
-//            spotListUpdated = System.currentTimeMillis();
-//        } catch (SQLException | NullPointerException ex) {
-//            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            ba = new ConvoyBackendRmi();
+        } catch (Exception ex) {
+            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            con.connect("Test", "password");
+            dao = new SpotsDAO(con);
+        } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
+            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            spotList = dao.getSpots();
+            spotListUpdated = System.currentTimeMillis();
+        } catch (SQLException | NullPointerException ex) {
+            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
         createTestData();
     }
     
