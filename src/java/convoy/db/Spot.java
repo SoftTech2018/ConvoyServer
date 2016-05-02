@@ -20,6 +20,21 @@ public class Spot implements Serializable {
     
     public Spot(){}
     
+    public Spot(boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean fuel, boolean roadtrain, double longitude, double latitude, String name, long lastUpdated, boolean deleted){
+        this. addBlue = addBlue;
+        this.food = food;
+        this.fuel = fuel;
+        this.wc = wc;
+        this.bed = bed;
+        this.bath = bath;
+        this.roadtrain = roadtrain;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.lastUpdated = lastUpdated;
+        this.deleted = deleted;
+        this.name = name;
+    }
+    
     public Spot(int id, boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean fuel, boolean roadtrain, double longitude, double latitude, String name, long lastUpdated, boolean deleted){
         this.id = id;
         this. addBlue = addBlue;

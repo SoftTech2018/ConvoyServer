@@ -47,12 +47,13 @@ public class SpotsDAO {
         String cmd = "INSERT INTO " + con.tabelNavn +
                 " (adblue, bath, bed, food, fuel, roadtrain, wc, description, posLat, posLng, lastUpdated, deleted)" +
                 " VALUES (" + spot.isAddBlue() +
+                ", " + spot.isBath() +
                 ", " + spot.isBed() +
                 ", " + spot.isFood() +
                 ", " + spot.isFuel() +
                 ", " + spot.isRoadtrain() +
                 ", " + spot.isWc() +
-                ", " + spot.getName() +
+                ", "+ "\"" + spot.getName() + "\"" +
                 ", " + spot.getLatidude() +
                 ", " + spot.getLongitude() +
                 ", " + time +
@@ -86,7 +87,7 @@ public class SpotsDAO {
                 ", SET lastUpdated = " + System.currentTimeMillis() +
                 ", SET deleted = " + spot.isDeleted() +
                 " WHERE id = " + spot.getId();
-        if (con.doUpdate(cmd) ==0 ){
+        if (con.doUpdate(cmd) == 0 ){
             return false;
         }
         return true;

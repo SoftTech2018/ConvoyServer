@@ -65,7 +65,7 @@ public class ConvoyResource {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            con.connect("Test", "password");
+            con.connect("", "");
             dao = new SpotsDAO(con);
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,7 +76,7 @@ public class ConvoyResource {
         } catch (SQLException | NullPointerException ex) {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
         }
-        createTestData();
+//        createTestData();
     }
     
     // Opret noget testdata
@@ -117,9 +117,13 @@ public class ConvoyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String postCreate(String spot){
         Spot addSpot = gson.fromJson(spot, Spot.class);
-        addSpot.setId(spotList.size()+1);
-        this.spotList.add(addSpot);
-        return gson.toJson(spotList.get(spotList.size()-1));
+        try {
+            dao.createSpot(addSpot);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return spot;
     }
     
     @PUT
@@ -127,14 +131,24 @@ public class ConvoyResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String putEdit(String spot){
+        Spot input = gson.fromJson(spot, Spot.class);
+        System.out.println("spot: "+input);
+        System.out.println("id: "+input.getId());
+        System.out.println("name: "+input.getName());
+        System.out.println("lat: "+input.getLatidude());
+        System.out.println("long: "+input.getLongitude());
+        System.out.println("last: "+input.getLastUpdated());
+        
+//        dao.updateSpot(input);
+        
         return spot;
     }
     
     @GET
     @Path("/get_id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getId(@PathParam("id") String navn){
-        return navn;
+    public String getId(@PathParam("id") String id){
+        return id;
     }
     
     @GET
