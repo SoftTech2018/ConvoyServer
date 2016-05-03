@@ -11,8 +11,11 @@ import java.rmi.Naming;
 
 
 /**
- *
- * @author ministeren
+ *  Klassens formål: At oprette forbindelse til brugerautorisationsserveren og 
+ *  håndtere indgående login-anmodninger fra REST-serveren, samt oprette tokens
+ *  på godkendte logins.
+ *  @author Ebbe
+ *  
  */
 public class ConvoyBackendRmi 
 {
@@ -37,14 +40,13 @@ public class ConvoyBackendRmi
          System.out.println(newToken);
          System.out.println("Token oprettet");
          
-         
          return newToken;
          
         } catch (Exception e) {
             e.getStackTrace();
             System.out.println("Bruger findes ikke på serveren eller password er forkert");
-            String bad = "Bruger findes ikke på serveren eller password er forkert";
-            return bad;
+//            String bad = "Bruger findes ikke på serveren eller password er forkert";
+            return null;
         }
     
     
