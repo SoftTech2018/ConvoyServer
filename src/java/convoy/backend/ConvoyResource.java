@@ -21,6 +21,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
@@ -51,6 +52,8 @@ public class ConvoyResource {
     private long spotListUpdated;
     private long limit = 300000; // 300 sekunder = 5 minutter
     String newToken = null;
+    private String user = "";
+    private String pass = "";
     
     @Context
     private UriInfo context;
@@ -67,7 +70,7 @@ public class ConvoyResource {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            con.connect("", "");
+            con.connect(user, pass);
             dao = new SpotsDAO(con);
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,6 +94,15 @@ public class ConvoyResource {
         spotList.add(new Spot(4, false, true, false, true, true, false, false, 12.01486 +0.3, 55.484564, "Test4", time + limit, false));
         spotList.add(new Spot(5, false, true, false, true, true, false, false, 12.01486 +0.4, 55.484564, "Test5", time + limit, false));
         spotListUpdated = System.currentTimeMillis();
+    }
+    
+    @OPTIONS
+    @Path("/getsample")
+    public Response getOptions() {
+        return Response.ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
+                .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
     }
     
     /**
@@ -136,10 +148,10 @@ public class ConvoyResource {
         Spot input = gson.fromJson(spot, Spot.class);
         System.out.println("id: "+input.getId());
         System.out.println("name: "+input.getName());
-         
+        
         try {
             if(th.validateToken(newToken) != null){
-            dao.updateSpot(input);
+                dao.updateSpot(input);
             } else {
                 return null;
             }
@@ -219,7 +231,7 @@ public class ConvoyResource {
         //Kalder GET - get() på target og accepterer JSON
         Response res = client.target("http://dawa.aws.dk/adresser?q="+adresse).request(MediaType.APPLICATION_JSON).get();
         
-        //Sætter svaret til at være en string        
+        //Sætter svaret til at være en string
         
         return res.readEntity(String.class);
     }
