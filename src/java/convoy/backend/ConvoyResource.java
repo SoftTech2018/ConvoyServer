@@ -65,7 +65,7 @@ public class ConvoyResource {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            con.connect("carlend_net", "Cfcm1982cfcm");
+            con.connect("", "");
             dao = new SpotsDAO(con);
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
