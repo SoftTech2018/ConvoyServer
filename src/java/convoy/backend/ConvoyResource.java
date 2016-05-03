@@ -65,7 +65,7 @@ public class ConvoyResource {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            con.connect("", "");
+            con.connect("carlend_net", "Cfcm1982cfcm");
             dao = new SpotsDAO(con);
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,14 +132,14 @@ public class ConvoyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String putEdit(String spot){
         Spot input = gson.fromJson(spot, Spot.class);
-        System.out.println("spot: "+input);
         System.out.println("id: "+input.getId());
         System.out.println("name: "+input.getName());
-        System.out.println("lat: "+input.getLatidude());
-        System.out.println("long: "+input.getLongitude());
-        System.out.println("last: "+input.getLastUpdated());
         
-//        dao.updateSpot(input);
+        try {
+            dao.updateSpot(input);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return spot;
     }

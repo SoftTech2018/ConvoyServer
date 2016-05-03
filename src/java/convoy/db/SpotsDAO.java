@@ -53,7 +53,7 @@ public class SpotsDAO {
                 ", " + spot.isFuel() +
                 ", " + spot.isRoadtrain() +
                 ", " + spot.isWc() +
-                ", "+ "\"" + spot.getName() + "\"" +
+                ", " + "\"" + spot.getName() + "\"" +
                 ", " + spot.getLatidude() +
                 ", " + spot.getLongitude() +
                 ", " + time +
@@ -75,17 +75,17 @@ public class SpotsDAO {
     public boolean updateSpot(Spot spot) throws SQLException{
         String cmd = "UPDATE " + con.tabelNavn + 
                 " SET adblue = " + spot.isAddBlue() + 
-                ", SET bath = " + spot.isBath() +
-                ", SET bed = " + spot.isBed() +
-                ", SET food = " + spot.isBed() + 
-                ", SET fuel = " + spot.isFuel() + 
-                ", SET roadtrain = " + spot.isRoadtrain() +
-                ", SET wc = " + spot.isWc() +
-                ", SET description = " + spot.getName() +
-                ", SET posLat = " + spot.getLatidude() +
-                ", SET posLng = " + spot.getLongitude() + 
-                ", SET lastUpdated = " + System.currentTimeMillis() +
-                ", SET deleted = " + spot.isDeleted() +
+                ", bath = " + spot.isBath() +
+                ", bed = " + spot.isBed() +
+                ", food = " + spot.isBed() + 
+                ", fuel = " + spot.isFuel() + 
+                ", roadtrain = " + spot.isRoadtrain() +
+                ", wc = " + spot.isWc() +
+                ", description = " + "\"" + spot.getName() + "\"" +
+                ", posLat = " + spot.getLatidude() +
+                ", posLng = " + spot.getLongitude() + 
+                ", lastUpdated = " + System.currentTimeMillis() +
+                ", deleted = " + spot.isDeleted() +
                 " WHERE id = " + spot.getId();
         if (con.doUpdate(cmd) == 0 ){
             return false;
