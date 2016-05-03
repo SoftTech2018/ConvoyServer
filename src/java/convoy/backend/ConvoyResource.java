@@ -6,6 +6,7 @@
 package convoy.backend;
 
 import brugerautorisation.transport.rmi.ConvoyBackendRmi;
+import brugerautorisation.transport.rmi.TokenHandler;
 import com.google.gson.Gson;
 import convoy.db.Connecter;
 import convoy.db.Spot;
@@ -44,6 +45,7 @@ public class ConvoyResource {
     private Gson gson;
     private Connecter con;
     private ConvoyBackendRmi ba;
+    private TokenHandler th;
     private SpotsDAO dao;
     private ArrayList<Spot> spotList;
     private long spotListUpdated;
@@ -130,13 +132,17 @@ public class ConvoyResource {
     @Path("/edit/spot")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String putEdit(String spot){
+    public String putEdit(String spot, String newToken){
         Spot input = gson.fromJson(spot, Spot.class);
         System.out.println("id: "+input.getId());
         System.out.println("name: "+input.getName());
-        
+         
         try {
+            if(th.validateToken(newToken) != null){
             dao.updateSpot(input);
+            } else {
+                return null;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -199,8 +205,7 @@ public class ConvoyResource {
         } catch (Exception ex) {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        return name+" "+pass;
-return newToken;
+        return newToken;
     }
     
     @GET

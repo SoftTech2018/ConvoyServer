@@ -24,8 +24,8 @@ public class ConvoyBackendRmi
         System.out.println("Publicerer RMI-tjeneste");
         this.ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
         System.out.println("RMI-tjeneste publiceret"); 
-    adminLogin("s144842", "xxx");
-    adminLogin("s144842", "xxx1");
+//    adminLogin("s144842", "xxx");
+//    adminLogin("s144842", "xxx1");
     }
     
     public String adminLogin(String brugernavn, String adgangskode) throws Exception{
