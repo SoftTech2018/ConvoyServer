@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import convoy.db.Connecter;
 import convoy.db.Spot;
 import convoy.db.SpotsDAO;
+import diverse.PutContainer;
 import diverse.SpotsContainer;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -144,22 +145,20 @@ public class ConvoyResource {
     @Path("/edit/spot")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String putEdit(String spot, String newToken){
-        Spot input = gson.fromJson(spot, Spot.class);
-        System.out.println("id: "+input.getId());
-        System.out.println("name: "+input.getName());
-        
+    public String putEdit(String pc){
+        PutContainer input = gson.fromJson(pc, PutContainer.class);
+//        System.out.println("id: "+input.getId());
+//        System.out.println("name: "+input.getName());
+         
         try {
-            if(th.validateToken(newToken) != null){
-                dao.updateSpot(input);
-            } else {
-                return null;
+            if(th.validateToken(input.getToken()) != null){
+            dao.updateSpot(input.getSpot());
             }
         } catch (SQLException ex) {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return spot;
+        return null;
     }
     
     @GET
