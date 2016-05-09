@@ -130,7 +130,7 @@ public class ConvoyResource {
     @Path("/create/spot")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postCreate(String spot){
+    public Response postCreate(String spot){
         Spot addSpot = gson.fromJson(spot, Spot.class);
         try {
             dao.createSpot(addSpot);
@@ -138,7 +138,12 @@ public class ConvoyResource {
             Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return spot;
+        return Response.ok()
+            .entity(spot)
+            .header("Access-Control-Allow-Origin","*")
+            .header("Access-Control-Allow-Methods", "GET, POST, PUT")
+            .allow("OPTIONS")
+            .build();
     }
     
     @PUT
