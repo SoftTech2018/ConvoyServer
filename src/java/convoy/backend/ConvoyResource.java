@@ -52,7 +52,6 @@ public class ConvoyResource {
     private ArrayList<Spot> spotList;
     private long spotListUpdated;
     private long limit = 300000; // 300 sekunder = 5 minutter
-    String newToken = null;
     private String user = "";
     private String pass = "";
     
@@ -218,6 +217,7 @@ public class ConvoyResource {
     @Path("/get_user/")
     @Produces(MediaType.APPLICATION_JSON)
     public String getUser(@QueryParam("name") String name, @QueryParam("pass") String pass){
+        String newToken = null;
         try {
             newToken = ba.adminLogin(name, pass);
         } catch (Exception ex) {
