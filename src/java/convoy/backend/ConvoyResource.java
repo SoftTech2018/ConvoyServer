@@ -229,7 +229,7 @@ public class ConvoyResource {
     @GET
     @Path("/get_dawa/{adresse}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getDawa(@PathParam("adresse") String adresse){
+    public Response getDawa(@PathParam("adresse") String adresse){
         
         Client client = ClientBuilder.newClient();
         JSONArray jsonarray = null;
@@ -239,6 +239,11 @@ public class ConvoyResource {
         
         //Sætter svaret til at være en string
         
-        return res.readEntity(String.class);
+        return Response.ok()
+            .entity(res.readEntity(String.class))
+            .header("Access-Control-Allow-Origin","*")
+            .header("Access-Control-Allow-Methods", "GET, POST, PUT")
+            .allow("OPTIONS")
+            .build();
     }
 }
