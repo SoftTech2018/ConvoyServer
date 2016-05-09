@@ -13,6 +13,8 @@ import convoy.db.Spot;
 import convoy.db.SpotsDAO;
 import diverse.PutContainer;
 import diverse.SpotsContainer;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -237,7 +239,13 @@ public class ConvoyResource {
     public Response getDawa(@PathParam("adresse") String adresse){
         
         Client client = ClientBuilder.newClient();
-        JSONArray jsonarray = null;
+    
+        
+        try {
+            adresse = URLEncoder.encode(adresse, "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         //Kalder GET - get() på target og accepterer JSON
         Response res = client.target("http://dawa.aws.dk/adresser?q="+adresse).request(MediaType.APPLICATION_JSON).get();
