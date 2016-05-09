@@ -172,20 +172,26 @@ public class ConvoyResource {
     @GET
     @Path("/get_all")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAll(){
+    public Response getAll(){
         // URL: http://localhost:8080/ConvoyServer/webresources/convoy/get_all
+        String json;
         if((System.currentTimeMillis() - spotListUpdated) > limit){ // Hent en "frisk" liste fra serveren hvis der er gået for lang tid
-            String json;
             try {
                 json = gson.toJson(dao.getSpots());
             } catch (SQLException ex) {
                 Logger.getLogger(ConvoyResource.class.getName()).log(Level.SEVERE, null, ex);
-                return gson.toJson(spotList); // Returner nuværende liste hvis DB er offline
+                json = gson.toJson(spotList); // Returner nuværende liste hvis DB er offline
             }
-            return json;
         } else {
-            return gson.toJson(spotList);
+            json = gson.toJson(spotList);
         }
+        
+        return Response.ok()
+            .entity(json)
+            .header("Access-Control-Allow-Origin","*")
+            .header("Access-Control-Allow-Methods", "GET, POST, PUT")
+            .allow("OPTIONS")
+            .build();
     }
     
     @GET
