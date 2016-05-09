@@ -65,6 +65,7 @@ public class ConvoyResource {
     public ConvoyResource() {
         gson = new Gson();
         con = new Connecter();
+        th = new TokenHandler();
         try {
             ba = new ConvoyBackendRmi();
         } catch (Exception ex) {
