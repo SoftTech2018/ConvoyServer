@@ -99,14 +99,14 @@ public class ConvoyResource {
 //        spotListUpdated = System.currentTimeMillis();
 //    }
     
-//    @OPTIONS
-//    @Path("/getsample")
-//    public Response getOptions() {
-//        return Response.ok()
-//                .header("Access-Control-Allow-Origin", "*")
-//                .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-//                .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
-//    }
+    @OPTIONS
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response options() {
+        return Response.ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+                .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
+    }
     
     /**
      * Retrieves representation of an instance of convoy.backend.ConvoyResource
