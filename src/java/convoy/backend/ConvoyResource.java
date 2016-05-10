@@ -99,14 +99,7 @@ public class ConvoyResource {
 //        spotListUpdated = System.currentTimeMillis();
 //    }
     
-    @OPTIONS
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response options() {
-        return Response.ok()
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-                .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
-    }
+    
     
     /**
      * Retrieves representation of an instance of convoy.backend.ConvoyResource
@@ -128,6 +121,17 @@ public class ConvoyResource {
 //    public void putJson(String content) {
 //    }
     
+    @OPTIONS
+    @Path("/create/spot")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response options() {
+        return Response.ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+                .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
+    }
+    
+    
     @POST
     @Path("/create/spot")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -143,7 +147,7 @@ public class ConvoyResource {
         return Response.ok()
             .entity(spot)
             .header("Access-Control-Allow-Origin","*")
-            .header("Access-Control-Allow-Methods", "GET, POST, PUT")
+            .header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
 //            .allow("OPTIONS")
             .build();
     }
