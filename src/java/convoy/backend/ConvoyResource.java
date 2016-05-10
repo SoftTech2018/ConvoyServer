@@ -88,25 +88,25 @@ public class ConvoyResource {
     }
     
     // Opret noget testdata
-    private void createTestData(){
-        spotList = new ArrayList();
-        long time = System.currentTimeMillis();
-        spotList.add(new Spot(1, false, true, false, true, true, false, false, 12.01486, 55.484564, "Test1", 1, false));
-        spotList.add(new Spot(2, false, true, false, true, true, false, false, 12.01486 +0.1, 55.484564, "Test2", time - (time / 6), false));
-        spotList.add(new Spot(3, false, true, false, true, true, false, false, 12.01486 +0.2, 55.484564, "Test3", time - (time / 3), true));
-        spotList.add(new Spot(4, false, true, false, true, true, false, false, 12.01486 +0.3, 55.484564, "Test4", time + limit, false));
-        spotList.add(new Spot(5, false, true, false, true, true, false, false, 12.01486 +0.4, 55.484564, "Test5", time + limit, false));
-        spotListUpdated = System.currentTimeMillis();
-    }
+//    private void createTestData(){
+//        spotList = new ArrayList();
+//        long time = System.currentTimeMillis();
+//        spotList.add(new Spot(1, false, true, false, true, true, false, false, 12.01486, 55.484564, "Test1", 1, false));
+//        spotList.add(new Spot(2, false, true, false, true, true, false, false, 12.01486 +0.1, 55.484564, "Test2", time - (time / 6), false));
+//        spotList.add(new Spot(3, false, true, false, true, true, false, false, 12.01486 +0.2, 55.484564, "Test3", time - (time / 3), true));
+//        spotList.add(new Spot(4, false, true, false, true, true, false, false, 12.01486 +0.3, 55.484564, "Test4", time + limit, false));
+//        spotList.add(new Spot(5, false, true, false, true, true, false, false, 12.01486 +0.4, 55.484564, "Test5", time + limit, false));
+//        spotListUpdated = System.currentTimeMillis();
+//    }
     
-    @OPTIONS
-    @Path("/getsample")
-    public Response getOptions() {
-        return Response.ok()
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
-                .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
-    }
+//    @OPTIONS
+//    @Path("/getsample")
+//    public Response getOptions() {
+//        return Response.ok()
+//                .header("Access-Control-Allow-Origin", "*")
+//                .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
+//                .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
+//    }
     
     /**
      * Retrieves representation of an instance of convoy.backend.ConvoyResource
